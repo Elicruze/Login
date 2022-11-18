@@ -13,11 +13,13 @@ class userLogin {
     
     var name:String?
     var pass:String?
-    let userLimit:Int = 100
+    let userNameLimit:Int = 7
+    let userPassLimit:Int = 10
     var userList:[String]?
     var userCurrentAmount = 0
     let wordAmount: (String, Int)?
     let adminAccount:String = "Elicruze390!"
+    
     
     init () {
         //Look up more about init
@@ -31,8 +33,19 @@ class userLogin {
     }
     
     func newUserAccount (name:String, pass:String) {
-        self.name = name
-        self.pass = pass
+        if name.count <= userNameLimit && pass.count >= userPassLimit {
+            self.name = name
+            self.pass = pass
+            print ("pass")
+        }
+        else if name.count >= userNameLimit {print ("The username exceeds the amount you can use.")
+            print(name.count)
+        }
+        else if pass.count >= userPassLimit {print ("The password exceeds the amount you can use.")
+            print(pass.count)
+        }
+        else {print("Something went wrong")}
+        addAmountAccounts()
     }
     
 }
