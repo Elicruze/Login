@@ -13,18 +13,17 @@ class userLogin {
     
     var name:String?
     var pass:String?
-    let userNameLimit:Int = 7
+    let userNameLimit:Int = 8
     let userPassLimit:Int = 10
-    var userList:[String]?
+    var userList:[String]
     var userCurrentAmount = 0
     let wordAmount: (String, Int)?
-    let adminAccount:String = "Elicruze390!"
-    
+    let adminAccount:String = "Admin: Elicruze"
     
     init () {
         //Look up more about init
-        userList = nil
         wordAmount = nil
+        userList = [adminAccount]
     }
 
     
@@ -32,17 +31,35 @@ class userLogin {
         userCurrentAmount += 1
     }
     
+    func coverPassword () {
+    }
+    
     func newUserAccount (name:String, pass:String) {
-        if name.count <= userNameLimit && pass.count >= userPassLimit {
+        var coverPass = ""
+        if name.count <= userNameLimit || pass.count >= userPassLimit {
             self.name = name
             self.pass = pass
-            print ("pass")
+            userList.append(self.name!)
+            for _ in self.pass! {
+                coverPass.append("*")
+            }
+            print ("\n☑️UserName...\(self.name!)\n☑️Password...\(coverPass).")
         }
-        else if name.count >= userNameLimit {print ("The username exceeds the amount you can use.")
-            print(name.count)
+        else if name.count > userNameLimit {print ("The username exceeds the amount you can use. Please check and re-type.")
+            repeat { print("The name you chose was did not met critia. Please try another.")
+                 self.name = readLine()!
+            } while self.name!.count >= userNameLimit
+            self.name = name
+            userList.append(self.name!)
+            self.pass = pass
         }
-        else if pass.count >= userPassLimit {print ("The password exceeds the amount you can use.")
-            print(pass.count)
+        else if pass.count > userPassLimit {print ("The password exceeds the amount you can use. Please check and re-type.")
+            repeat { print("The pass you chose was did not met critia. Please try another.")
+                 self.pass = readLine()!
+            } while self.pass!.count >= userNameLimit
+            self.pass = pass
+            self.name = name
+            userList.append(self.name!)
         }
         else {print("Something went wrong")}
         addAmountAccounts()
@@ -55,10 +72,14 @@ let makeUser = userLogin()
 var userName:String
 var userPass:String
 
-print ("🔒Please make a username.")
+print ("Usernames must be: \(makeUser.userNameLimit) characters long. Passwords must be \(makeUser.userPassLimit) characters long.")
+
+print ("\n🔒Please make a username.")
 userName = readLine()!
 print ("🔒Please make a password.")
 userPass = readLine()!
 
 makeUser.newUserAccount(name: userName, pass: userPass)
-print (makeUser.name, makeUser.pass)
+print ("\nYour username is \(makeUser.name!), and your password is \(makeUser.pass!)")
+print ("\n📲Current user list...\(makeUser.userList)")
+
