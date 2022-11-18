@@ -33,21 +33,19 @@ class userLogin {
     func newUserAccount (name:String, pass:String) {
         self.name = name
         self.pass = pass
-        return
     }
     
 }
 
 let makeUser = userLogin()
-makeUser.newUserAccount(name: userName, pass: userPass)
 
 var userName:String
 var userPass:String
 
-print ("Please make a username.")
-userName = readLine()!.lowercased()
-print ("Please make a password.")
-userPass = readLine()!.lowercased()
+print ("🔒Please make a username.")
+userName = readLine()!
+print ("🔒Please make a password.")
+userPass = readLine()!
 
-
+makeUser.newUserAccount(name: userName, pass: userPass)
 print (makeUser.name, makeUser.pass)
